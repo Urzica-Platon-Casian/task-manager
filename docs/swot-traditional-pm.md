@@ -1,29 +1,51 @@
-# SWOT Analysis – Traditional Project Management (Waterfall)
+# SWOT Analysis — Traditional Project Management (Waterfall)
 
-## Strengths (Internal)
-- **Structured phases**: Faze clare si secventiale (Initiere, Planificare, Executie, Monitorizare, Inchidere) ofera predictibilitate si control.
-- **Cerinte definite upfront**: Toate cerintele sunt documentate inainte de inceperea dezvoltarii, eliminand ambiguitatea initiala.
-- **Managementul bugetului si timeline-ului**: Scope fix permite estimari clare de cost si durata.
-- **Documentatie comprehensiva**: Fiecare faza produce artefacte documentate, utile pentru auditare si transfer de cunostinte.
-- **Roluri si responsabilitati clare**: Fiecare membru al echipei stie exact ce are de facut si cand.
-- **Testarea are o faza dedicata**: QA este planificat explicit, nu improvizat.
+## Strengths
 
-## Weaknesses (Internal)
-- **Flexibilitate redusa la schimbari**: Modificarile de cerinte dupa faza de planificare sunt costisitoare si dificil de integrat.
-- **Feedback tarziu de la client**: Clientul vede produsul functional abia la final, riscand sa primeasca ceva care nu mai corespunde nevoilor actuale.
-- **Overhead de documentatie**: Timpul alocat documentatiei poate depasi valoarea adusa in proiecte mici sau medii.
-- **Testarea apare tarziu in ciclu**: Defectele descoperite tarziu sunt mult mai scumpe de remediat.
-- **Managementul cerintelor rigid**: Dificil de gestionat cerinte incomplete sau contradictorii descoperite pe parcurs.
-- **Arhitectura stabilita de la inceput**: Deciziile arhitecturale timpurii pot deveni constrangeri pe masura ce proiectul evolueaza.
+**Project structure**
+Waterfall impune o structura secventiala clara: initiere, planificare, executie, monitorizare, inchidere. Fiecare faza are intrari si iesiri bine definite, ceea ce face proiectul usor de urmarit si auditat.
 
-## Opportunities (External)
-- **Proiecte reglementate**: Industrii precum aparare, sanatate, aviatia impun documentatie formala – avantaj competitiv pentru echipele cu PM traditional.
-- **Standarde consacrate**: Existenta unor standarde precum PMBOK (PMI) sau PRINCE2 ofera cadre validate si recunoscute global.
-- **Echipe mari si distribuite**: Structura clara faciliteaza coordonarea unor echipe numeroase cu dependente bine definite.
-- **Contracte cu pret fix**: Clientii care doresc buget predictibil prefera abordarea traditionala.
+**Requirement management**
+Toate cerintele sunt colectate si documentate inainte de inceperea dezvoltarii. Asta elimina ambiguitatea la start si ofera o baza clara pentru estimari de cost si timp.
 
-## Threats (External)
-- **Schimbarea rapida a pietei**: Cerintele evolutive ale pietei pot face produsul livrat irelevant pana la finalizare.
-- **Concurenta Agile**: Competitorii care folosesc Agile livreaza valoare mai rapid si se adapteaza mai usor.
-- **Insatisfactia clientului**: Clientul poate fi nemultumit de un produs care nu mai reflecta nevoile sale actuale.
-- **Riscul de depasire a bugetului**: Definirea incompleta a cerintelor initiale genereaza costuri neprevazute.
+**Predictibilitate**
+Scope-ul fix permite bugete si timeline-uri stabile. Util in contracte cu pret fix sau in organizatii care raporteaza progresul periodic catre management.
+
+**Documentatie**
+Fiecare faza produce artefacte (specificatii, planuri, rapoarte de test) care raman ca referinta pe termen lung, util pentru proiecte cu cerinte de audit sau transfer de cunostinte.
+
+## Weaknesses
+
+**Adaptabilitate scazuta**
+Odata ce faza de planificare s-a incheiat, orice modificare de cerinte este costisitoare si necesita un proces formal de change management. Proiectele cu cerinte volatile sufera cel mai mult.
+
+**Feedback tarziu**
+Clientul vede un produs functional abia la finalul ciclului. Daca asteptarile s-au schimbat intre timp, costul corectiilor este ridicat.
+
+**Testare tarzie**
+QA incepe dupa ce dezvoltarea e completa. Defectele descoperite in aceasta faza sunt mult mai scumpe de remediat decat cele gasite devreme.
+
+**Overhead de documentatie**
+In proiecte mici sau medii, efortul de documentare poate depasi valoarea pe care o aduce, incetinind livrarile fara beneficii proporionale.
+
+## Opportunities
+
+**Proiecte reglementate**
+Industrii ca aparare, sanatate sau aviatia impun documentatie formala si trasabilitate completa a cerintelor. Waterfall se potriveste natural acestor contexte.
+
+**Standarde consacrate**
+Existenta unor framework-uri ca PMBOK (PMI) sau PRINCE2 ofera cadre validate si certificari recunoscute, care pot fi un avantaj competitiv.
+
+**Echipe mari si distribuite**
+Dependentele clare dintre faze permit organizarea unor echipe numeroase care lucreaza in paralel pe componente distincte, cu puncte de sincronizare bine definite.
+
+## Threats
+
+**Schimbarea cerintelor pe parcurs**
+Piata sau utilizatorii pot evolua in timpul unui proiect lung. Produsul livrat risca sa nu mai fie relevant la momentul lansarii.
+
+**Concurenta cu echipe Agile**
+Competitorii care folosesc metodologii iterative pot livra valoare mai rapid si se pot adapta la feedback, reducand avantajul primei lansari.
+
+**Depasiri de buget**
+Estimarile initiale se bazeaza pe cerinte care pot fi incomplete. Orice descoperire tarzie a unor cerinte neclare se traduce in costuri suplimentare.

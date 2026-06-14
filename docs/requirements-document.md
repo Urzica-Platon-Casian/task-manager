@@ -1,70 +1,84 @@
-# Requirements Document – TaskManager CLI
+# Requirements Document — TaskManager CLI
 
-**Project**: TaskManager CLI  
-**Version**: 1.0  
-**Date**: 2026-06-14  
-**Author**: Platon Casian  
+**Versiune:** 1.0  
+**Data:** 2026-06-14  
+**Autor:** Casian Urzica-Platon
 
 ---
 
-## 1. Project Overview
+## 1. Descriere generala
 
-TaskManager CLI este o aplicatie de linie de comanda scrisa in C# care permite utilizatorilor sa gestioneze o lista de task-uri. Task-urile sunt persistate local intr-un fisier JSON.
+TaskManager CLI este o aplicatie de consola scrisa in C# care permite gestionarea unei liste de task-uri. Utilizatorul interactioneaza cu aplicatia prin comenzi simple in terminal. Datele sunt salvate local intr-un fisier JSON, fara dependente externe (baza de date, servicii cloud etc.).
+
+Scopul proiectului este demonstrarea unei infrastructuri tehnice complete: cod organizat pe straturi, unit testing, CI/CD prin GitHub Actions si analiza statica a codului.
+
+---
 
 ## 2. Stakeholders
 
-| Rol | Responsabilitate |
-|-----|-----------------|
-| Product Owner | Defineste si prioritizeaza cerintele |
-| Developer | Implementeaza functionalitatea |
-| QA | Valideaza comportamentul prin unit tests |
+| Rol | Descriere |
+|-----|-----------|
+| Utilizator final | Persoana care ruleaza aplicatia din terminal |
+| Developer | Responsabil cu implementarea si intretinerea codului |
+| Profesor / Evaluator | Verifica indeplinirea cerintelor proiectului |
 
-## 3. Functional Requirements
+---
 
-### FR-01: Adaugare task
-- Utilizatorul poate adauga un task specificand un titlu (obligatoriu) si o descriere (optionala).
-- Sistemul asigneaza automat un ID unic, incremental.
-- Task-ul nou creat are statusul `IsCompleted = false`.
+## 3. Cerinte functionale
 
-### FR-02: Listare task-uri
-- Utilizatorul poate vizualiza toate task-urile existente.
-- Fiecare task afisaza: ID, status (completat/necompletat), titlu si descriere.
-- Daca nu exista task-uri, sistemul afiseaza un mesaj informativ.
+### FR-01 — Adaugare task
+Utilizatorul poate adauga un task specificand un titlu (obligatoriu) si o descriere (optionala). Aplicatia asigneaza automat un ID numeric unic, incremental. Task-ul nou creat are statusul necompletat.
 
-### FR-03: Completare task
-- Utilizatorul poate marca un task ca finalizat specificand ID-ul sau.
-- Sistemul confirma operatiunea sau anunta ca ID-ul nu exista.
+**Comanda:** `taskmanager add <titlu> [descriere]`  
+**Output:** `Added: [<id>] <titlu>`
 
-### FR-04: Stergere task
-- Utilizatorul poate sterge un task specificand ID-ul sau.
-- Sistemul confirma stergerea sau anunta ca ID-ul nu exista.
+### FR-02 — Listare task-uri
+Utilizatorul poate vedea toate task-urile existente. Fiecare rand afiseaza ID-ul, statusul (`[ ]` sau `[X]`), titlul si descrierea (daca exista). Daca lista e goala, aplicatia afiseaza un mesaj corespunzator.
 
-### FR-05: Persistenta datelor
-- Task-urile sunt salvate intr-un fisier `tasks.json` in directorul de executie.
-- La fiecare pornire a aplicatiei, task-urile existente sunt incarcate automat.
+**Comanda:** `taskmanager list`
 
-## 4. Non-Functional Requirements
+### FR-03 — Completare task
+Utilizatorul poate marca un task ca finalizat prin ID. Aplicatia confirma operatiunea sau anunta ca ID-ul nu exista.
 
-| ID | Cerinta | Detalii |
+**Comanda:** `taskmanager complete <id>`
+
+### FR-04 — Stergere task
+Utilizatorul poate sterge un task prin ID. Aplicatia confirma stergerea sau anunta ca ID-ul nu exista.
+
+**Comanda:** `taskmanager delete <id>`
+
+### FR-05 — Persistenta
+Task-urile sunt salvate in fisierul `tasks.json` din directorul de executie. La fiecare pornire, aplicatia incarca automat datele existente.
+
+---
+
+## 4. Cerinte non-functionale
+
+| ID | Cerinta | Detaliu |
 |----|---------|---------|
-| NFR-01 | Performanta | Operatiunile pe lista de task-uri se executa in sub 100ms |
-| NFR-02 | Portabilitate | Aplicatia ruleaza pe Windows, Linux si macOS (.NET 8) |
-| NFR-03 | Testabilitate | Logica de business este separata de I/O si testabila prin unit tests |
-| NFR-04 | Calitate cod | Codul trece de Roslyn static analyzers fara erori |
-| NFR-05 | CI/CD | Orice push pe `main` triggereaza build automat, teste si publicare artifact |
+| NFR-01 | Portabilitate | Ruleaza pe Windows, Linux si macOS (.NET 10) |
+| NFR-02 | Testabilitate | Logica de business e separata de I/O printr-o interfata (`ITaskRepository`), testabila independent |
+| NFR-03 | Calitate cod | Roslyn analyzers activi in build; zero erori de analiza statica |
+| NFR-04 | CI/CD | Orice push pe `main` triggereaza automat build, teste si publicare artifact |
+| NFR-05 | Performanta | Toate operatiunile se executa in sub 100ms pe liste de pana la 1000 task-uri |
 
-## 5. Constraints
+---
 
-- Limbaj: C# (.NET 8)
+## 5. Constrangeri
+
+- Limbaj: C# (.NET 10)
+- Interfata: CLI (fara GUI)
+- Stocare: fisier JSON local
 - Source control: GitHub
 - CI/CD: GitHub Actions
-- Stocare: fisier JSON local (fara baza de date)
-- Interfata: CLI (fara GUI)
 
-## 6. Acceptance Criteria
+---
 
-- [ ] Toate comenzile (add, list, complete, delete) functioneaza corect
-- [ ] Unit tests acopera toate scenariile de business (inclusiv cazuri eronate)
-- [ ] GitHub Actions pipeline ruleaza cu succes pe fiecare push
-- [ ] Static code analysis nu raporteaza erori
-- [ ] Artifact-ul publicat este downloadabil din GitHub Actions
+## 6. Criterii de acceptanta
+
+- [ ] Toate comenzile (add, list, complete, delete) produc output-ul corect
+- [ ] Comenzile cu argumente invalide sau ID-uri inexistente sunt tratate fara crash
+- [ ] Datele persista intre rulari consecutive
+- [ ] Toate cele 8 unit tests trec
+- [ ] Pipeline-ul GitHub Actions ruleaza verde pe fiecare push pe `main`
+- [ ] Artefactul publicat e disponibil in tab-ul Actions

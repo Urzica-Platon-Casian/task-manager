@@ -1,23 +1,18 @@
-# Risk Log – TaskManager CLI
+# Risk Log — TaskManager CLI
 
-**Project**: TaskManager CLI  
-**Version**: 1.0  
-**Date**: 2026-06-14  
+**Versiune:** 1.0  
+**Data:** 2026-06-14
 
----
-
-| ID | Risc | Probabilitate | Impact | Scor | Strategie de mitigare | Status |
-|----|------|:---:|:---:|:---:|---|---|
-| R-01 | Coruptia fisierului `tasks.json` din cauza unui crash in timpul scrierii | Scazut | Mediu | 4 | Scriere atomica: serialize in string, apoi `File.WriteAllText` (operatie atomica pe majoritatea OS-urilor) | Mitigat |
-| R-02 | Dependinte NuGet cu vulnerabilitati de securitate | Scazut | Inalt | 6 | Folosire versiuni LTS stabile; GitHub Dependabot poate fi activat pentru alerte automate | Deschis |
-| R-03 | GitHub Actions pipeline esueaza din cauza schimbarii versiunii de .NET | Mediu | Mediu | 6 | Specificarea explicita a versiunii .NET (`8.0.x`) in `ci.yml`; monitorizare anunturi EOL | Mitigat |
-| R-04 | Cerinte incomplete sau ambigue identificate tarziu | Mediu | Mediu | 6 | Cerinte validate inainte de implementare; backlog Trello permite reprioretizare rapida | Mitigat |
-| R-05 | Conflict de merge in repository daca mai multi contributori lucreaza simultan | Scazut | Scazut | 2 | Lucru pe branch-uri feature separate; PR review inainte de merge in `main` | Deschis |
-| R-06 | Depasirea timpului alocat proiectului | Mediu | Inalt | 8 | Scope intentionat minim; functionalitate redusa; sprint-uri scurte de 1 saptamana | Monitorizat |
-| R-07 | Incompatibilitate intre versiunea .NET de pe masina locala si cea din CI | Mediu | Mediu | 6 | `global.json` poate fixa versiunea SDK; CI foloseste aceeasi versiune declarata in `.csproj` | Deschis |
+Scala: Probabilitate si Impact se noteaza de la 1 (scazut) la 3 (inalt). Scorul = P × I.
 
 ---
 
-**Scala probabilitate**: Scazut (1) / Mediu (2) / Inalt (3)  
-**Scala impact**: Scazut (1) / Mediu (2) / Inalt (3)  
-**Scor** = Probabilitate × Impact (max 9)
+| ID | Descriere | P | I | Scor | Actiune |
+|----|-----------|:-:|:-:|:----:|---------|
+| R-01 | Fisierul `tasks.json` se poate corupe daca aplicatia se inchide fortat in timpul scrierii | 1 | 2 | 2 | `File.WriteAllText` scrie atomic pe majoritatea sistemelor de operare — riscul e acceptabil la scara actuala |
+| R-02 | Pachetele NuGet pot contine vulnerabilitati de securitate | 1 | 3 | 3 | Se folosesc versiuni stabile LTS; GitHub Dependabot poate fi activat pentru alerte automate |
+| R-03 | Pipeline-ul CI poate esua daca GitHub Actions isi schimba versiunea implicita de runner | 2 | 2 | 4 | Versiunea .NET e fixata explicit in `ci.yml` (`10.0.x`); se monitorizeaza anunturile de deprecare |
+| R-04 | Cerinte descoperite tarziu care necesita refactorizari majore | 2 | 2 | 4 | Scope-ul proiectului e intentionat redus; backlog-ul Trello permite reprioretizare rapida |
+| R-05 | Depasirea timpului alocat pentru implementare | 2 | 3 | 6 | Functionalitate minima definita clar de la inceput; sprinturi de o saptamana cu review la final |
+| R-06 | Incompatibilitate intre versiunea .NET locala si cea din CI | 2 | 2 | 4 | Ambele folosesc .NET 10; un fisier `global.json` poate fixa versiunea SDK daca apar divergente |
+| R-07 | Modificari breaking in xUnit sau alte dependente de test | 1 | 2 | 2 | Versiunile pachetelor sunt fixate in `.csproj`; upgrade-urile se fac explicit, nu automat |
